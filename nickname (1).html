@@ -1,0 +1,563 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Generate stylish usernames and nicknames for Instagram, Snapchat, YouTube, gaming and more.">
+<title>NickCraft | Ultimate Nickname Generator</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+--bg:#090b16;
+--card:#141a30;
+--purple:#9565ff;
+--blue:#40a6ff;
+--text:#fff;
+--muted:#a1a9c1;
+--border:rgba(255,255,255,.1);
+}
+
+body{
+font-family:Inter,Arial,sans-serif;
+background:radial-gradient(ellipse at top left,#35215c 0%,transparent 40%),radial-gradient(ellipse at bottom right,#102e53 0%,transparent 40%),var(--bg);
+color:var(--text);
+min-height:100vh;
+}
+
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:22px 7%;
+border-bottom:1px solid var(--border);
+}
+
+.logo{
+font-size:25px;
+font-weight:800;
+background:linear-gradient(90deg,#b18aff,#49c9ff);
+background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+nav a{
+color:#c4c9db;
+text-decoration:none;
+margin-left:22px;
+font-size:13px;
+}
+
+.hero{
+text-align:center;
+padding:65px 20px 40px;
+}
+
+.tag{
+display:inline-block;
+padding:9px 17px;
+border:1px solid #9565ff66;
+background:#9565ff15;
+color:#cbb5ff;
+border-radius:30px;
+font-size:12px;
+margin-bottom:22px;
+}
+
+.hero h1{
+font-size:clamp(35px,6vw,62px);
+font-weight:800;
+line-height:1.15;
+letter-spacing:-2px;
+}
+
+.gradient{
+background:linear-gradient(90deg,#ad80ff,#57c9ff);
+background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.hero p{
+max-width:600px;
+margin:18px auto;
+color:var(--muted);
+font-size:14px;
+line-height:1.8;
+}
+
+.container{
+width:min(950px,92%);
+margin:auto;
+}
+
+.generator{
+background:linear-gradient(145deg,#171d35,#101426);
+border:1px solid var(--border);
+border-radius:22px;
+padding:28px;
+box-shadow:0 20px 80px #0005;
+}
+
+h2{font-size:19px;margin-bottom:17px}
+
+.platforms{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+margin-bottom:28px;
+}
+
+.platform{
+padding:11px 15px;
+border-radius:9px;
+border:1px solid var(--border);
+color:#c3c8dc;
+background:#ffffff05;
+cursor:pointer;
+font-size:12px;
+transition:.2s;
+}
+
+.platform:hover,.platform.active{
+background:#9565ff30;
+border-color:var(--purple);
+color:white;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:18px;
+margin-bottom:22px;
+}
+
+label{
+display:block;
+font-size:12px;
+color:#bdc3d8;
+margin-bottom:9px;
+}
+
+input,select{
+width:100%;
+background:#090e20;
+border:1px solid var(--border);
+padding:15px;
+color:white;
+border-radius:11px;
+outline:none;
+font-family:inherit;
+font-size:14px;
+}
+
+input:focus,select:focus{border-color:var(--purple)}
+
+option{background:#141a30;color:white}
+
+.main-btn{
+width:100%;
+padding:17px;
+border:0;
+border-radius:12px;
+background:linear-gradient(90deg,#8655f7,#398cf8);
+color:white;
+font-weight:700;
+font-size:15px;
+cursor:pointer;
+transition:.2s;
+}
+
+.main-btn:hover{
+transform:translateY(-2px);
+box-shadow:0 8px 25px #7650ff55;
+}
+
+.results{
+margin-top:38px;
+padding-bottom:65px;
+}
+
+.results-header{
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin-bottom:20px;
+gap:10px;
+}
+
+.results-header h2{margin:0}
+
+.copy-all{
+padding:10px 15px;
+background:#875aff20;
+color:#cbb6ff;
+border:1px solid #875aff66;
+border-radius:9px;
+cursor:pointer;
+}
+
+.cards{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:13px;
+}
+
+.nickname{
+background:#141a30;
+border:1px solid var(--border);
+border-radius:13px;
+padding:17px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+animation:appear .3s ease;
+}
+
+.nickname strong{
+font-size:14px;
+overflow-wrap:anywhere;
+}
+
+.nickname small{
+display:block;
+color:var(--muted);
+font-size:10px;
+margin-top:6px;
+}
+
+.copy-btn{
+background:#8d65ff20;
+color:#c9b3ff;
+border:1px solid #8d65ff55;
+border-radius:8px;
+padding:9px 12px;
+cursor:pointer;
+flex-shrink:0;
+}
+
+.empty{
+color:var(--muted);
+text-align:center;
+padding:35px;
+border:1px dashed var(--border);
+border-radius:12px;
+grid-column:1/-1;
+line-height:1.8;
+}
+
+.info{
+margin-bottom:55px;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:15px;
+}
+
+.info-card{
+padding:20px;
+background:#141a30;
+border:1px solid var(--border);
+border-radius:14px;
+}
+
+.info-card h3{font-size:15px;margin-bottom:9px}
+.info-card p{font-size:12px;color:var(--muted);line-height:1.7}
+
+footer{
+text-align:center;
+padding:30px 15px;
+border-top:1px solid var(--border);
+color:var(--muted);
+font-size:12px;
+line-height:2;
+}
+
+@keyframes appear{
+from{opacity:0;transform:translateY(8px)}
+to{opacity:1;transform:translateY(0)}
+}
+
+@media(max-width:650px){
+header{padding:18px 5%}
+nav a{margin-left:10px;font-size:11px}
+.hero{padding-top:45px}
+.generator{padding:19px}
+.grid,.cards,.info{grid-template-columns:1fr}
+.hero h1{letter-spacing:-1px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="logo">NickCraft ✦</div>
+<nav>
+<a href="#generator">Generator</a>
+<a href="#results">Nicknames</a>
+</nav>
+</header>
+
+<section class="hero">
+<div class="tag">✦ YOUR IDENTITY. YOUR STYLE.</div>
+<h1>Find Your Perfect<br><span class="gradient">Username & Nickname</span></h1>
+<p>Create unique, stylish and creative usernames for your favourite social media platforms. Make your online identity unforgettable.</p>
+</section>
+
+<main class="container">
+
+<section class="generator" id="generator">
+
+<h2>01. Choose Your Platform</h2>
+
+<div class="platforms" id="platforms">
+<button class="platform active">Instagram</button>
+<button class="platform">Snapchat</button>
+<button class="platform">Facebook</button>
+<button class="platform">YouTube</button>
+<button class="platform">TikTok</button>
+<button class="platform">WhatsApp</button>
+<button class="platform">Discord</button>
+<button class="platform">Telegram</button>
+<button class="platform">Gaming</button>
+<button class="platform">Twitter / X</button>
+<button class="platform">Pinterest</button>
+<button class="platform">Threads</button>
+<button class="platform">Twitch</button>
+<button class="platform">Free Fire</button>
+<button class="platform">BGMI</button>
+<button class="platform">Universal</button>
+</div>
+
+<h2>02. Personalize Your Nickname</h2>
+
+<div class="grid">
+
+<div>
+<label for="name">Your Name / Word</label>
+<input id="name" placeholder="e.g. Ranvir, King, Jatt">
+</div>
+
+<div>
+<label for="style">Nickname Style</label>
+<select id="style">
+<option value="attitude">😎 Attitude</option>
+<option value="royal">👑 Royal / King</option>
+<option value="aesthetic">✨ Aesthetic</option>
+<option value="cute">💗 Cute</option>
+<option value="gaming">🎮 Gaming</option>
+<option value="professional">💼 Professional</option>
+<option value="dark">🖤 Dark / Mysterious</option>
+<option value="love">❤️ Love / Romantic</option>
+<option value="fancy">💎 Fancy Symbols</option>
+<option value="random">🎲 Random Mix</option>
+</select>
+</div>
+
+<div>
+<label for="quantity">Number of Nicknames</label>
+<select id="quantity">
+<option value="10">10 Nicknames</option>
+<option value="20" selected>20 Nicknames</option>
+<option value="30">30 Nicknames</option>
+<option value="50">50 Nicknames</option>
+</select>
+</div>
+
+<div>
+<label for="keyword">Optional Keyword</label>
+<input id="keyword" placeholder="e.g. Official, Singh, Pro">
+</div>
+
+</div>
+
+<button class="main-btn" onclick="generate()">✨ GENERATE MY NICKNAMES</button>
+
+</section>
+
+<section class="results" id="results">
+
+<div class="results-header">
+<h2>✦ Your Nickname Collection</h2>
+<button class="copy-all" onclick="copyAll()">Copy All ↗</button>
+</div>
+
+<div class="cards" id="cards">
+<div class="empty">
+Your creative nicknames will appear here.<br>
+Enter your name and click Generate!
+</div>
+</div>
+
+</section>
+
+<section class="info">
+<div class="info-card">
+<h3>✨ Creative Names</h3>
+<p>Generate unique and stylish nicknames for your online identity.</p>
+</div>
+<div class="info-card">
+<h3>⚡ Quick Copy</h3>
+<p>Copy your favourite username with a single click.</p>
+</div>
+<div class="info-card">
+<h3>🌍 Multiple Platforms</h3>
+<p>Discover username ideas for social media and gaming platforms.</p>
+</div>
+</section>
+
+</main>
+
+<footer>
+<div class="logo">NickCraft ✦</div>
+Create Your Identity. Express Your Style.<br>
+© 2026 NickCraft. All Rights Reserved.
+</footer>
+
+<script>
+
+let selectedPlatform="Instagram";
+let generatedNames=[];
+
+const styles={
+attitude:["Boss","Fearless","Legend","Savage","Unstoppable","Vibe","Outlaw","Royal","Alpha","Don"],
+royal:["King","Prince","Royal","Crown","Emperor","Maharaja","Nawab","Elite","Legacy","Majesty"],
+aesthetic:["Moon","Aura","Dream","Bliss","Cloud","Nova","Soul","Echo","Luna","Glow"],
+cute:["Angel","Bunny","Daisy","Sweet","Honey","Baby","Cherry","Cutie","Peach","Sparkle"],
+gaming:["X","Pro","OP","Sniper","Hunter","Legend","Ghost","Ninja","Shadow","Clutch"],
+professional:["Official","Studio","Creative","Digital","World","Creator","Media","Vision","Original","Prime"],
+dark:["Phantom","Venom","Dark","Ghost","Raven","Night","Void","Reaper","Mystic","Eclipse"],
+love:["Heart","Forever","Soulmate","Dreamer","Angel","Love","Beloved","Heartbeat","Eternal","Romance"],
+fancy:["✦","★","亗","ツ","メ","々","乂","〆","么","彡"]
+};
+
+function cleanName(name){
+return name.replace(/[^a-zA-Z0-9]/g,"").slice(0,18);
+}
+
+function shuffle(array){
+return [...array].sort(()=>Math.random()-.5);
+}
+
+document.querySelectorAll(".platform").forEach(btn=>{
+btn.addEventListener("click",()=>{
+document.querySelectorAll(".platform").forEach(b=>b.classList.remove("active"));
+btn.classList.add("active");
+selectedPlatform=btn.textContent.trim();
+});
+});
+
+function generate(){
+
+const name=cleanName(document.getElementById("name").value.trim()) || "User";
+const keyword=cleanName(document.getElementById("keyword").value.trim());
+const style=document.getElementById("style").value;
+const quantity=Number(document.getElementById("quantity").value);
+
+let words=style==="random"?Object.values(styles).flat():styles[style];
+let pool=new Set();
+
+words.forEach(word=>{
+pool.add(name+word);
+pool.add(word+name);
+pool.add(name+"_"+word);
+pool.add(name+"."+word);
+pool.add("Its"+name+word);
+pool.add("The"+name+word);
+pool.add(name+word+"07");
+
+if(keyword){
+pool.add(name+keyword);
+pool.add(keyword+name);
+pool.add(name+"_"+keyword);
+}
+});
+
+if(style==="fancy"){
+styles.fancy.forEach(symbol=>{
+pool.add(symbol+name);
+pool.add(name+symbol);
+pool.add(symbol+name+symbol);
+});
+}
+
+const final=shuffle([...pool]).slice(0,quantity);
+generatedNames=final;
+
+const cards=document.getElementById("cards");
+cards.innerHTML="";
+
+final.forEach(nick=>{
+
+const card=document.createElement("div");
+card.className="nickname";
+
+const info=document.createElement("div");
+const strong=document.createElement("strong");
+strong.textContent=nick;
+
+const small=document.createElement("small");
+small.textContent=selectedPlatform+" • "+style.toUpperCase();
+
+info.append(strong,small);
+
+const copy=document.createElement("button");
+copy.className="copy-btn";
+copy.textContent="Copy";
+
+copy.onclick=async()=>{
+try{
+await navigator.clipboard.writeText(nick);
+copy.textContent="Copied ✓";
+}catch(e){
+fallbackCopy(nick);
+copy.textContent="Copied ✓";
+}
+setTimeout(()=>copy.textContent="Copy",1200);
+};
+
+card.append(info,copy);
+cards.appendChild(card);
+
+});
+
+document.getElementById("results").scrollIntoView({
+behavior:"smooth",
+block:"start"
+});
+
+}
+
+function fallbackCopy(value){
+const area=document.createElement("textarea");
+area.value=value;
+document.body.appendChild(area);
+area.select();
+document.execCommand("copy");
+area.remove();
+}
+
+async function copyAll(){
+
+if(!generatedNames.length){
+alert("Generate nicknames first!");
+return;
+}
+
+try{
+await navigator.clipboard.writeText(generatedNames.join("\n"));
+alert("All nicknames copied successfully!");
+}catch(e){
+fallbackCopy(generatedNames.join("\n"));
+alert("Nicknames copied!");
+}
+
+}
+
+</script>
+</body>
+</html>
